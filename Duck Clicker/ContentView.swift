@@ -34,7 +34,7 @@ struct ContentView: View {
                     .padding()
                 }
             }
-            .navigationTitle("Start")
+            .navigationTitle("Menu")
             .navigationBarHidden(true)
         }
     }
