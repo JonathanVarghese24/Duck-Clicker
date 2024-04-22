@@ -9,13 +9,17 @@ import SwiftUI
 
 struct DuckView: View {
     @State private var score: Int = 0
+    
     var body: some View {
         ZStack {
             Color.blue.opacity(0.8).ignoresSafeArea()
             VStack {
                 Button(action: {
                     score = score + 1
-                }) {
+                    
+                    
+                })
+                {
                     Image("duck")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -26,7 +30,7 @@ struct DuckView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                 
-                NavigationLink(destination: UpgradesView()) {
+                NavigationLink(destination: UpgradesView(clicks: $score)) {
                     Text("Upgrades")
                 }
                 .buttonStyle(.borderedProminent)
@@ -34,7 +38,6 @@ struct DuckView: View {
         }
     }
 }
-
 
 #Preview {
     DuckView()

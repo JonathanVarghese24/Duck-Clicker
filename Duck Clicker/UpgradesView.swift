@@ -8,15 +8,21 @@
 import SwiftUI
 
 struct UpgradesView: View {
+    @State private var twoscore: Bool = false
+    @Binding var clicks: Int
     var body: some View {
-        Text("Upgrades")
-            .font(.system(size: 50))
-            .fontWeight(.bold)
-        Spacer()
-        
+        VStack {
+            Text("Your Score is \(clicks)")
+            
+            Button(action: {
+
+            })
+            Text("Lose 1000 score, but each click is now +2 score")
+                .buttonStyle(.borderedProminent)
+                .navigationBarTitle("Upgrades", displayMode: .inline)
+        }
     }
 }
-
 #Preview {
-    UpgradesView()
+    UpgradesView(clicks: .constant(0))
 }
