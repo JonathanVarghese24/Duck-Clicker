@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DuckView: View {
     @State private var score: Int = 0
-    
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ZStack {
             Color.blue.opacity(0.8).ignoresSafeArea()
@@ -34,8 +34,22 @@ struct DuckView: View {
                     Text("Upgrades")
                 }
                 .buttonStyle(.borderedProminent)
+                
+                .padding()
+                Button(action: {
+                    // Go back to the previous view
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Menu")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
             }
         }
+        .navigationBarBackButtonHidden(true)
+        
     }
 }
 
