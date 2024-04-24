@@ -10,12 +10,18 @@ import SwiftUI
 struct DuckView: View {
     @State private var score: Int = 0
     @Environment(\.presentationMode) var presentationMode
+    @State private var twoScore: Int = 0
     var body: some View {
         ZStack {
             Color.blue.opacity(0.8).ignoresSafeArea()
             VStack {
                 Button(action: {
-                    score = score + 1
+                    if twoScore == 1 {
+                        score = score + 2
+                    }
+                    else {
+                        score = score + 1
+                    }
                     
                     
                 })
@@ -30,7 +36,7 @@ struct DuckView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                 
-                NavigationLink(destination: UpgradesView(clicks: $score)) {
+                NavigationLink(destination: UpgradesView(clicks: $score, doubleScore: $twoScore)) {
                     Text("Upgrades")
                 }
                 .buttonStyle(.borderedProminent)

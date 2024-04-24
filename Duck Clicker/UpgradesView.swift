@@ -11,7 +11,7 @@ struct UpgradesView: View {
     @State private var twoscore: Bool = false
     @Binding var clicks: Int
     @Environment(\.presentationMode) var presentationMode
-    @State private var doubleScore: Int = 0
+    @Binding var doubleScore: Int
     @State private var doublePressCount = 0
     @State private var showNoPointsMessage = false
     @State private var canClickButton = true 
@@ -81,5 +81,5 @@ struct UpgradesView: View {
 }
 
 #Preview {
-    UpgradesView(clicks: .constant(0))
+    UpgradesView(clicks: .constant(0), doubleScore: .constant(0))
 }
