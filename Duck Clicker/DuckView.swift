@@ -3,10 +3,10 @@ struct DuckView: View {
     @State private var score: Int = 0
     @Environment(\.presentationMode) var presentationMode
     @State private var twoScore: Int = 0
-<<<<<<< HEAD
+
     @State private var clicked: Int = 0
-=======
->>>>>>> dev
+
+
     var body: some View {
         ZStack {
             Color.blue.opacity(0.8).ignoresSafeArea()
