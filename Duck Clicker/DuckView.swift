@@ -12,7 +12,7 @@ struct DuckView: View {
             Color.blue.opacity(0.8).ignoresSafeArea()
             VStack {
                 Button(action: {
-                    if twoScore == 1 {
+                    if twoScore >= 1 {
                         score = score + 2
                     }
                     else {
@@ -43,10 +43,10 @@ struct DuckView: View {
                     // Go back to the previous view
                     presentationMode.wrappedValue.dismiss()
                 }) {
-                    Text("Menu")
+                    Text("Reset")
                         .foregroundColor(.white)
                         .padding()
-                        .background(Color.blue)
+                        .background(Color.red)
                         .cornerRadius(10)
                 }
             }

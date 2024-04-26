@@ -15,7 +15,7 @@ struct ContentView: View {
                 ZStack {
                     Color.black.opacity(0.6).ignoresSafeArea()
                     VStack {
-                        Image("duck")
+                        Image("duckTitle")
                             .frame(width: 10, height: 10)
                         Circle()
                             .fill(Color.blue)

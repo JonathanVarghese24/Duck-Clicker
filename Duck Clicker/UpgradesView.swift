@@ -13,6 +13,7 @@ struct UpgradesView: View {
     @Binding var doubleScore: Int
     @State private var doublePressCount = 0
     @State private var showNoPointsMessage = false
+    @State private var purchasedUpgrade = false
     @State private var canClickButton = true
     @State private var ducks: Int = 25
     
@@ -38,19 +39,26 @@ struct UpgradesView: View {
                         .font(.system(size: 20))
                         .fontWeight(.bold)
                     Button(action: {
-                        
-                        if clicks >= 25 && canClickButton {
-                            clicks -= 25
-                            doublePressCount += 1
-                            if doublePressCount % 2 == 1 {
-                                doubleScore += 1
-                            } else {
-                                doubleScore -= 1
-                            }
-                            canClickButton = false // Disable the button after clicking
-                        } else {
-                            showNoPointsMessage = true
+                        if doubleScore >= 1{
+                            canClickButton = false
+                            purchasedUpgrade = true
                         }
+                        else {
+                            if clicks >= 25 && canClickButton {
+                                clicks -= 25
+                                doubleScore += 1
+                                if doubleScore == 1 {
+                                    canClickButton = false
+                                    
+                                } else {
+                                    doubleScore += 0
+                                }
+                                canClickButton = false // Disable the button after clicking
+                            } else {
+                                showNoPointsMessage = true
+                            }
+                        }
+                        
                     }) {
                         VStack{
                             HStack{
@@ -178,6 +186,12 @@ struct UpgradesView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        .alert(isPresented: $purchasedUpgrade) {
+            Alert(
+                title: Text("You already Own This Upgrade!"),
+                message: Text("Save Up Ducks To Get New Upgrades."),
+                dismissButton: .default(Text("OK"))
+        )}
     }
 }
 
