@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CAAE6B7A2BD9553300D1E97F /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAE6B792BD9553300D1E97F /* Stats.swift */; };
 		D89461352BD0138000AD6B88 /* DuckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89461342BD0138000AD6B88 /* DuckView.swift */; };
 		D89461372BD2BB6900AD6B88 /* UpgradesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89461362BD2BB6900AD6B88 /* UpgradesView.swift */; };
 		D8A9526C2BC6D95300DC59C9 /* Duck_ClickerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A9526B2BC6D95300DC59C9 /* Duck_ClickerApp.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CAAE6B792BD9553300D1E97F /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		D89461342BD0138000AD6B88 /* DuckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuckView.swift; sourceTree = "<group>"; };
 		D89461362BD2BB6900AD6B88 /* UpgradesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradesView.swift; sourceTree = "<group>"; };
 		D8A952682BC6D95300DC59C9 /* Duck Clicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Duck Clicker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +61,7 @@
 				D8A9526D2BC6D95300DC59C9 /* ContentView.swift */,
 				D89461342BD0138000AD6B88 /* DuckView.swift */,
 				D89461362BD2BB6900AD6B88 /* UpgradesView.swift */,
+				CAAE6B792BD9553300D1E97F /* Stats.swift */,
 				D8A9526F2BC6D95500DC59C9 /* Assets.xcassets */,
 				D8A952712BC6D95500DC59C9 /* Preview Content */,
 			);
@@ -144,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8A9526E2BC6D95300DC59C9 /* ContentView.swift in Sources */,
+				CAAE6B7A2BD9553300D1E97F /* Stats.swift in Sources */,
 				D8A9526C2BC6D95300DC59C9 /* Duck_ClickerApp.swift in Sources */,
 				D89461352BD0138000AD6B88 /* DuckView.swift in Sources */,
 				D89461372BD2BB6900AD6B88 /* UpgradesView.swift in Sources */,
