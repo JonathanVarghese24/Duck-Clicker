@@ -171,33 +171,16 @@ struct UpgradesView: View {
                 }
             }
         }
-        
-    }
-    func showAlert(withDucks ducksValue: Int) {
-            // Update the value of ducks with the provided value
-            ducks = ducksValue
-            
-            // Set showNoPointsMessage to true to trigger the presentation of the alert
-            showNoPointsMessage = true
+        .alert(isPresented: $showNoPointsMessage) {
+            Alert(
+                title: Text("Not Enough Points"),
+                message: Text("You need at least 5 points to use this upgrade."),
+                dismissButton: .default(Text("OK"))
+            )
         }
-    
-    var alert: Alert{
-        Alert(title: Text("Not Enough Points"),
-              message: Text("You need at least \(ducks) points to use this upgrade."),
-              dismissButton: .default(Text("OK")) {
-            // Handle OK button action if needed
-            showNoPointsMessage = false
-        }
-        
-        )
     }
-    
-    
-    
 }
 
-
-#Preview{
+#Preview {
     UpgradesView(clicks: .constant(0), doubleScore: .constant(0))
 }
-
