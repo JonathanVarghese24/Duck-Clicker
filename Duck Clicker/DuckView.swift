@@ -1,3 +1,10 @@
+//
+//  DuckView.swift
+//  Duck Clicker
+//
+//  Created by Jonathan Varghese on 4/10/24.
+//
+
 import SwiftUI
 struct DuckView: View {
     @State private var score: Int = 0

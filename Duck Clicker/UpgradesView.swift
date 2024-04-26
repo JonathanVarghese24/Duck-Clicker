@@ -1,10 +1,9 @@
-
-//important theres an error whenever you buy an upgrade, this could be because i add a second button and it somehow cancels it out i dont know but if you buy the button again it resets your click to 1 instead of saying that you cant buy it//
-
-
-
-
-
+//
+//  UpgradesView.swift
+//  Duck Clicker
+//
+//  Created by Jonathan Varghese on 4/10/24.
+//
 import SwiftUI
 struct UpgradesView: View {
     @State private var twoscore: Bool = false
@@ -16,6 +15,7 @@ struct UpgradesView: View {
     @State private var purchasedUpgrade = false
     @State private var canClickButton = true
     @State private var ducks: Int = 25
+    @State private var timer: Timer?
     
     var body: some View {
         ZStack {
@@ -91,17 +91,12 @@ struct UpgradesView: View {
                     Button(action: {
                         if clicks >= 25 && canClickButton {
                             clicks -= 25
-                            doublePressCount += 1  //need to change this to a different variable for the next upgrade
-                            if doublePressCount % 2 == 1 {
-                                doubleScore += 1
-                            } else {
-                                doubleScore -= 1
-                            }
-                            canClickButton = false // Disable the button after clicking
+                            startTimerTen()
+                            canClickButton = false
                         } else {
                             showNoPointsMessage = true
                         }
-                    }) {
+                    }){
                         VStack{
                             HStack{
                                 Text("Duck Printer + 0.1 a second") .fontWeight(.bold)
@@ -129,13 +124,8 @@ struct UpgradesView: View {
                     Button(action: {
                         if clicks >= 25 && canClickButton {
                             clicks -= 25
-                            doublePressCount += 1  //need to change this to a different variable for the next upgrade
-                            if doublePressCount % 2 == 1 {
-                                doubleScore += 1
-                            } else {
-                                doubleScore -= 1
-                            }
-                            canClickButton = false // Disable the button after clicking
+                            startTimer()
+                            canClickButton = false
                         } else {
                             showNoPointsMessage = true
                         }
@@ -192,6 +182,17 @@ struct UpgradesView: View {
                 message: Text("Save Up Ducks To Get New Upgrades."),
                 dismissButton: .default(Text("OK"))
         )}
+    }
+    
+    func startTimerTen() {
+        timer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { _ in
+            clicks += 1
+        }
+    }
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            clicks += 1
+        }
     }
 }
 
