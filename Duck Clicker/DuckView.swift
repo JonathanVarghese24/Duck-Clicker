@@ -19,6 +19,7 @@ struct DuckView: View {
             Color.blue.opacity(0.8).ignoresSafeArea()
             VStack {
                 Button(action: {
+                    clicked += 1
                     if twoScore >= 1 {
                         score = score + 2
                     }

@@ -13,9 +13,11 @@ struct Stats: View {
             Color.blue.opacity(0.8).ignoresSafeArea()
             VStack{
                 Text("Statistics")
-                    .font(.system(size: 50))
+                    .font(.system(size: 50
+                                ))
                     .fontWeight(.bold)
                 Spacer()
+                Text("You have clicked 0 times")
             }
         }
     }
