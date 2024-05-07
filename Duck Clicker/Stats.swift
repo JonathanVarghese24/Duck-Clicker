@@ -8,21 +8,34 @@
 import SwiftUI
 
 struct Stats: View {
+    @Binding var ducks: Int
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ZStack{
             Color.blue.opacity(0.8).ignoresSafeArea()
             VStack{
-                Text("Statistics")
-                    .font(.system(size: 50
-                                ))
-                    .fontWeight(.bold)
-                Spacer()
-                Text("You have clicked 0 times")
+                Text("You have clicked the duck \(ducks) times!")
+                    .foregroundColor(.white)
+                    .fontWeight(.heavy)
+                    Spacer()
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Go Back")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(50)
+                    }
             }
         }
+        .navigationBarTitle("Statistics", displayMode: .inline)
+        .navigationBarHidden(true)
     }
+    
 }
 
 #Preview {
-    Stats()
+    Stats(ducks: .constant(0))
 }
+

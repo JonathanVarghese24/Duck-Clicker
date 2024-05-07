@@ -7,24 +7,30 @@
 // Will's comment
 
 import SwiftUI
-
 struct ContentView: View {
     var body: some View {
         NavigationView {
             NavigationLink(destination: DuckView()) {
                 ZStack {
-                    Color.black.opacity(0.6).ignoresSafeArea()
+                    LinearGradient(colors: [.blue, .black], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        .ignoresSafeArea()
                     VStack {
-                        Image("duckTitle")
-                            .frame(width: 10, height: 10)
+                        Image("duck")
+                            .resizable()
+                            .frame(width: 300, height: 300)
+                            .position(CGPoint(x: 175, y: 150))
+                            .overlay(
                         Circle()
-                            .fill(Color.blue)
-                            .frame(width: 350, height: 350)
+                            .frame(width: 200, height: 200)
+                            .foregroundColor(.blue)
+                            .ignoresSafeArea()
                             .overlay(
                                 Text("Duck Clicker")
                                     .font(.title)
                                     .fontWeight(.bold)
-                                    .foregroundColor(.yellow))
+                                    .foregroundColor(.white)
+                            )
+                        )
                             .padding()
                         Text("Click Anywhere to Start")
                             .font(.title)
@@ -39,7 +45,6 @@ struct ContentView: View {
         }
     }
 }
-
 #Preview {
     ContentView()
 }

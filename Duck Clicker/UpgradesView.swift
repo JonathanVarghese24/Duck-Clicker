@@ -5,17 +5,24 @@
 //  Created by Jonathan Varghese on 4/10/24.
 //
 import SwiftUI
+enum ActiveAlert {
+    case first, second
+}
+
 struct UpgradesView: View {
-    @State private var twoscore: Bool = false
     @Binding var clicks: Int
     @Environment(\.presentationMode) var presentationMode
     @Binding var doubleScore: Int
-    @State private var doublePressCount = 0
-    @State private var showNoPointsMessage = false
-    @State private var purchasedUpgrade = false
-    @State private var canClickButton = true
-    @State private var ducks: Int = 25
+    @State private var printer: Int = 0
+    @State private var fabricator: Int = 0
+    @State private var ducks: Int = 0
     @State private var timer: Timer?
+    @State private var showAlert = false
+    @State private var activeAlert: ActiveAlert = .first
+    @State private var canClick2X = true
+    @State private var canClickPrinter = true
+    @State private var canClickFabricator = true
+    
     
     var body: some View {
         ZStack {
@@ -29,49 +36,42 @@ struct UpgradesView: View {
                 VStack {
                     HStack{
                         Text("You have \(clicks)")
-                            
+                        
                         Image("duck")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 50, height: 50)
                             .padding(.leading, -12)
                     }
-                        .font(.system(size: 20))
-                        .fontWeight(.bold)
+                    .font(.system(size: 20))
+                    .fontWeight(.bold)
                     Button(action: {
-                        if doubleScore >= 1{
-                            canClickButton = false
-                            purchasedUpgrade = true
+                        if doubleScore >= 1 {
+                            canClick2X = false
+                            self.activeAlert = .first
+                        } else if clicks >= 25 && canClick2X && doubleScore < 1 {
+                            clicks -= 25
+                            doubleScore += 1
+                            canClick2X = false
+                            self.activeAlert = .first
+                        } else if clicks < 25 {
+                            self.activeAlert = .second
                         }
-                        else {
-                            if clicks >= 25 && canClickButton {
-                                clicks -= 25
-                                doubleScore += 1
-                                if doubleScore == 1 {
-                                    canClickButton = false
-                                    
-                                } else {
-                                    doubleScore += 0
-                                }
-                                canClickButton = false // Disable the button after clicking
-                            } else {
-                                showNoPointsMessage = true
-                            }
-                        }
-                        
-                    }) {
+                        self.showAlert = true
+                    })
+                    {
                         VStack{
                             HStack{
                                 Text("2x ") .fontWeight(.bold)
-                                    
+                                
                                 Text("Clicks").fontWeight(.bold)
                                     .padding(.leading, -8)
                             }
-                                .background(canClickButton ? Color.blue : Color.gray) 
-                            // button cant click if used already 
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                //leave this space for seperation of hstacks
+                            .background(canClick2X ? Color.blue : Color.gray)
+                            // button cant click if used already
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                            //leave this space for seperation of hstacks
                             HStack(spacing: 0){
                                 Image("duck")
                                     .resizable()
@@ -83,30 +83,36 @@ struct UpgradesView: View {
                             .padding(.top, -15)
                             
                         }
-
+                        
                     }
-                    .disabled(!canClickButton) // Disable the button if it has been clicked
-                                            .buttonStyle(.borderedProminent)
-                    
+                    .disabled(!canClickPrinter) // Disable the button if it has been clicked
+                    .buttonStyle(.borderedProminent)
                     Button(action: {
-                        if clicks >= 25 && canClickButton {
+                        if printer >= 1 {
+                            canClickPrinter = false
+                            self.activeAlert = .first
+                        } else if clicks >= 25 && canClickPrinter && printer < 1 {
                             clicks -= 25
+                            printer += 1
                             startTimerTen()
-                            canClickButton = false
-                        } else {
-                            showNoPointsMessage = true
+                            canClickPrinter = false
+                            self.activeAlert = .first
+                        } else if clicks < 25 {
+                            self.activeAlert = .second
                         }
-                    }){
+                        self.showAlert = true
+                    })
+                    {
                         VStack{
                             HStack{
                                 Text("Duck Printer + 0.1 a second") .fontWeight(.bold)
-                                    
+                                
                             }
-                                .background(canClickButton ? Color.blue : Color.gray)
+                            .background(canClickPrinter ? Color.blue : Color.gray)
                             // button cant click if used already
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                //leave this space for seperation of hstacks
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                            //leave this space for seperation of hstacks
                             HStack(){
                                 Image("duck")
                                     .resizable()
@@ -117,25 +123,32 @@ struct UpgradesView: View {
                             .padding(.top, -15)
                             
                         }
-
+                        
                     }
                     .buttonStyle(.borderedProminent)
-                    
                     Button(action: {
-                        if clicks >= 25 && canClickButton {
+                        if fabricator >= 1 {
+                            canClickFabricator = false
+                            self.activeAlert = .first
+                            self.showAlert = true
+                        } else if clicks >= 25 && canClickFabricator && fabricator < 1 {
                             clicks -= 25
+                            fabricator += 1
                             startTimer()
-                            canClickButton = false
-                        } else {
-                            showNoPointsMessage = true
+                            canClickFabricator = false
+                            self.activeAlert = .first
+                        } else if clicks < 25 {
+                            self.activeAlert = .second
                         }
-                    }) {
+                        self.showAlert = true
+                    })
+                    {
                         VStack{
                             HStack{
                                 Text("Duck Fabricator + 1 a second") .fontWeight(.bold)
                                 
                             }
-                            .background(canClickButton ? Color.blue : Color.gray)
+                            .background(canClickFabricator ? Color.blue : Color.gray)
                             // button cant click if used already
                             .foregroundColor(.white)
                             .cornerRadius(10)
@@ -151,8 +164,14 @@ struct UpgradesView: View {
                         }
                     }
                     .buttonStyle(.borderedProminent)
-                    
-                    
+                    VStack{
+                        Text("You Can Buy More than")
+                            .foregroundColor(.white)
+                            .fontWeight(.heavy)
+                        Text("1 Fabricator and Printer!")
+                            .foregroundColor(.white)
+                            .fontWeight(.heavy)
+                    }
                     
                     .navigationBarTitle("Upgrades", displayMode: .inline)
                     .navigationBarHidden(true)
@@ -169,20 +188,16 @@ struct UpgradesView: View {
                 }
             }
         }
-        .alert(isPresented: $showNoPointsMessage) {
-            Alert(
-                title: Text("Not Enough Points"),
-                message: Text("You need at least 5 points to use this upgrade."),
-                dismissButton: .default(Text("OK"))
-            )
+        .alert(isPresented: $showAlert) {
+            switch activeAlert {
+            case .first:
+                return Alert(title: Text("You've Purchased This Upgrade"), message: Text("Click The Duck To Get More Points"))
+            case .second:
+                return Alert(title: Text("You Don't Have Enough Points"), message: Text("Save Ducks To Now Buy New Upgrades!"))
+            }
         }
-        .alert(isPresented: $purchasedUpgrade) {
-            Alert(
-                title: Text("You already Own This Upgrade!"),
-                message: Text("Save Up Ducks To Get New Upgrades."),
-                dismissButton: .default(Text("OK"))
-        )}
     }
+    
     
     func startTimerTen() {
         timer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { _ in

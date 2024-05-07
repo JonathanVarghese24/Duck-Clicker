@@ -10,7 +10,7 @@ struct DuckView: View {
     @State private var score: Int = 0
     @Environment(\.presentationMode) var presentationMode
     @State private var twoScore: Int = 0
-
+    @State private var seconds: Int = 0
     @State private var clicked: Int = 0
 
 
@@ -43,10 +43,16 @@ struct DuckView: View {
                 NavigationLink(destination: UpgradesView(clicks: $score, doubleScore: $twoScore)) {
                     Text("Upgrades")
                 }
-                
+                .frame(width: 200, height: 60)
                 .buttonStyle(.borderedProminent)
                 
-                .padding()
+                NavigationLink(destination: Stats(ducks: $clicked)) {
+                    Text("Stats  ")
+                }
+                .frame(width: 200, height: 60)
+                .buttonStyle(.borderedProminent)
+                Spacer()
+                
                 Button(action: {
                     // Go back to the previous view
                     presentationMode.wrappedValue.dismiss()
