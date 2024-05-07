@@ -12,8 +12,6 @@ struct DuckView: View {
     @State private var twoScore: Int = 0
     @State private var seconds: Int = 0
     @State private var clicked: Int = 0
-
-
     var body: some View {
         ZStack {
             Color.blue.opacity(0.8).ignoresSafeArea()
@@ -30,10 +28,18 @@ struct DuckView: View {
                     
                 })
                 {
-                    Image("duck")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 300, height: 300)
+                    if clicked >= 100 {
+                        Image("kingDuck")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 300, height: 300)
+                    }
+                    else {
+                        Image("duck")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 300, height: 300)
+                    }
                 }
                 Text("Your have \(score) Ducks")
                     .font(.title)
@@ -72,4 +78,3 @@ struct DuckView: View {
 #Preview {
     DuckView()
 }
-

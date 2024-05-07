@@ -17,7 +17,15 @@ struct Stats: View {
                 Text("You have clicked the duck \(ducks) times!")
                     .foregroundColor(.white)
                     .fontWeight(.heavy)
-                    Spacer()
+                    .padding()
+                Text("Get To 100 Total Clicks")
+                    .foregroundColor(.white)
+                    .fontWeight(.heavy)
+                Text("To Get A New Skin!")
+                    .foregroundColor(.white)
+                    .fontWeight(.heavy)
+                    .padding()
+                
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
                     }) {

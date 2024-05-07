@@ -8,7 +8,6 @@ import SwiftUI
 enum ActiveAlert {
     case first, second
 }
-
 struct UpgradesView: View {
     @Binding var clicks: Int
     @Environment(\.presentationMode) var presentationMode
@@ -210,7 +209,6 @@ struct UpgradesView: View {
         }
     }
 }
-
 #Preview {
     UpgradesView(clicks: .constant(0), doubleScore: .constant(0))
 }
