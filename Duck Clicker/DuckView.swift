@@ -12,6 +12,8 @@ struct DuckView: View {
     @State private var twoScore: Int = 0
     @State private var seconds: Int = 0
     @State private var clicked: Int = 0
+    @State private var printer: Int = 0
+    @State private var fabricator: Int = 0
     var body: some View {
         ZStack {
             Color.blue.opacity(0.8).ignoresSafeArea()
@@ -46,7 +48,7 @@ struct DuckView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                 
-                NavigationLink(destination: UpgradesView(clicks: $score, doubleScore: $twoScore)) {
+                NavigationLink(destination: UpgradesView(clicks: $score, doubleScore: $twoScore, printer: $printer, fabricator: $fabricator)) {
                     Text("Upgrades")
                 }
                 .frame(width: 200, height: 60)

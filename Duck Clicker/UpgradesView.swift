@@ -6,14 +6,14 @@
 //
 import SwiftUI
 enum ActiveAlert {
-    case first, second
+    case first, second, third
 }
 struct UpgradesView: View {
     @Binding var clicks: Int
     @Environment(\.presentationMode) var presentationMode
     @Binding var doubleScore: Int
-    @State private var printer: Int = 0
-    @State private var fabricator: Int = 0
+    @Binding var printer: Int
+    @Binding var fabricator: Int
     @State private var ducks: Int = 0
     @State private var timer: Timer?
     @State private var showAlert = false
@@ -21,7 +21,6 @@ struct UpgradesView: View {
     @State private var canClick2X = true
     @State private var canClickPrinter = true
     @State private var canClickFabricator = true
-    
     
     var body: some View {
         ZStack {
@@ -47,7 +46,7 @@ struct UpgradesView: View {
                     Button(action: {
                         if doubleScore >= 1 {
                             canClick2X = false
-                            self.activeAlert = .first
+                            self.activeAlert = .third
                         } else if clicks >= 25 && canClick2X && doubleScore < 1 {
                             clicks -= 25
                             doubleScore += 1
@@ -87,10 +86,7 @@ struct UpgradesView: View {
                     .disabled(!canClickPrinter) // Disable the button if it has been clicked
                     .buttonStyle(.borderedProminent)
                     Button(action: {
-                        if printer >= 1 {
-                            canClickPrinter = false
-                            self.activeAlert = .first
-                        } else if clicks >= 25 && canClickPrinter && printer < 1 {
+                       if clicks >= 25 && canClickPrinter{
                             clicks -= 25
                             printer += 1
                             startTimerTen()
@@ -126,11 +122,7 @@ struct UpgradesView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     Button(action: {
-                        if fabricator >= 1 {
-                            canClickFabricator = false
-                            self.activeAlert = .first
-                            self.showAlert = true
-                        } else if clicks >= 25 && canClickFabricator && fabricator < 1 {
+                       if clicks >= 25 && canClickFabricator{
                             clicks -= 25
                             fabricator += 1
                             startTimer()
@@ -170,8 +162,29 @@ struct UpgradesView: View {
                         Text("1 Fabricator and Printer!")
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
+                        
+                        Spacer()
+                        if printer == 1 {
+                            Text("You Own \(printer) Duck Printer")
+                                .foregroundColor(.white)
+                                .fontWeight(.heavy)
+                        } else {
+                            Text("You Own \(printer) Duck Printers")
+                                .foregroundColor(.white)
+                                .fontWeight(.heavy)
+                        }
+                        if fabricator == 1 {
+                            Text("You Own \(fabricator) Duck Fabricator")
+                                .foregroundColor(.white)
+                                .fontWeight(.heavy)
+                        } else {
+                            Text("You Own \(fabricator) Duck Fabricators")
+                                .foregroundColor(.white)
+                                .fontWeight(.heavy)
+
+                        }
                     }
-                    
+                   
                     .navigationBarTitle("Upgrades", displayMode: .inline)
                     .navigationBarHidden(true)
                     Spacer()
@@ -190,9 +203,12 @@ struct UpgradesView: View {
         .alert(isPresented: $showAlert) {
             switch activeAlert {
             case .first:
-                return Alert(title: Text("You've Purchased This Upgrade"), message: Text("Click The Duck To Get More Points"))
+                return Alert(title: Text("You've Purchased This Upgrade"), message: Text("Save Ducks To Now Buy New Upgrades!"))
             case .second:
-                return Alert(title: Text("You Don't Have Enough Points"), message: Text("Save Ducks To Now Buy New Upgrades!"))
+                return Alert(title: Text("You Don't Have Enough Points"), message: Text("Click The Duck To Get More Points"))
+            case .third:
+                return Alert(title: Text("You've Already Have This Upgrade"), message: Text("Save Ducks To Now Buy New Upgrades!"))
+
             }
         }
     }
@@ -210,5 +226,5 @@ struct UpgradesView: View {
     }
 }
 #Preview {
-    UpgradesView(clicks: .constant(0), doubleScore: .constant(0))
+    UpgradesView(clicks: .constant(0), doubleScore: .constant(0), printer: .constant(0), fabricator: .constant(0))
 }
